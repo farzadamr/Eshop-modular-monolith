@@ -9,3 +9,4 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Shared.Data.Seed;
 global using Catalog.Data.Seed;
 
+
