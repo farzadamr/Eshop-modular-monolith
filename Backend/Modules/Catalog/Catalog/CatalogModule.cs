@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 namespace Catalog;
 public static class CatalogModule
 {
@@ -13,14 +14,14 @@ public static class CatalogModule
         {
             options.UseNpgsql(connectionString);
         });
-
+        services.AddScoped<IDataSeeder, CatalogDataSeeder>();
         return services;
     }
 
-    public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
     {
-
-        return builder;
+        app.UseMigration<CatalogDbContext>();
+        return app;
     }
 
 }
