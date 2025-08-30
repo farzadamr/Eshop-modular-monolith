@@ -21,3 +21,5 @@ global using Microsoft.AspNetCore.Routing;
 global using Catalog.Products.Features.CreateProducts;
 global using Catalog.Products.Features.UpdateProduct;
 global using Catalog.Products.Features.DeleteProduct;
+global using Catalog.Products.Exceptions;
+global using FluentValidation;
