@@ -15,8 +15,7 @@ public class CreateProductCommandValidator: AbstractValidator<CreateProductComma
 }
 
 public class CreateProductHandler
-    (CatalogDbContext dbContext,
-    ILogger<CreateProductHandler> logger)
+    (CatalogDbContext dbContext)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
