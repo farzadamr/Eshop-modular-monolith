@@ -3,6 +3,11 @@ version: '3.4'
 services:
   eshopdb:
     image: postgres:17-alpine
+  
+  seq:
+    image: datalust/seq:latest
+
+   
 
 volumes:
   postgres-eshopdb:
