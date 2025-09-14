@@ -1,9 +1,7 @@
-using Carter;
-using Microsoft.AspNetCore.Builder;
-using Shared.Exceptions.Handlers;
-using Shared.Extentions;
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container
 
@@ -23,17 +21,15 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
+
+app.MapCarter();
+app.UseSerilogRequestLogging();
 app.UseExceptionHandler(options => { });
 
 app
     .UseCatalogModule()
     .UseBasketModule()
     .UseOrderingModule();
-
-
-app.MapCarter();
-
-app.MapGet("/api/health", () => { return "Hello, From App!!"; });
 
 
 app.Run();
