@@ -17,12 +17,12 @@ public class GetProductsHandler(CatalogDbContext dbContext)
         var pageSize = query.PaginationRequest.pageSize;
 
         var totalCount = await dbContext.Products.LongCountAsync(cancellationToken);
-        
+
         var products = await dbContext.Products
             .AsNoTracking()
             .OrderBy(p => p.Name)
             .Skip(pageSize * pageIndex)
-            .Take(page)
+            .Take(pageSize)
             .ToListAsync(cancellationToken);
 
         //mapping product entity to productDto using Mapster
