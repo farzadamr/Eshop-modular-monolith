@@ -5,21 +5,12 @@ public record DeleteBasketCommand(string Username)
 
 public record DeleteBasketResult(bool IsSuccess);
 
-internal class DeleteBasketHandler(BasketDbContext dbContext)
+internal class DeleteBasketHandler(IBasketRepository repository)
     : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
 {
     public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
     {
-        var basket = await dbContext.ShoppingCarts
-            .SingleOrDefaultAsync(x => x.UserName == command.Username, cancellationToken);
-       
-        if (basket is null)
-        {
-            throw new BasketNotFoundException(command.Username);
-        }
-
-        dbContext.ShoppingCarts.Remove(basket);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await repository.DeleteBasket(command.Username, cancellationToken);
         return new DeleteBasketResult(true);
     }
 }

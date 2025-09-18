@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Basket.Data.Repository;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Caching.Distributed;
 using Shared.Data;
 using Shared.Data.Interceptors;
 
@@ -12,6 +14,8 @@ public static class BasketModule
         // 1. Api EndPoint Services
 
         // 2. Application Use Case Services
+        services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<IBasketRepository,CachedBasketRepository>();
 
         // 3. Data - Infrastructure Services
         var connectionString = configuration.GetConnectionString("Database");
