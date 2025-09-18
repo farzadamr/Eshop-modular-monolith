@@ -1,5 +1,4 @@
-﻿using Basket.Data;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Shared.Data;
 using Shared.Data.Interceptors;
 

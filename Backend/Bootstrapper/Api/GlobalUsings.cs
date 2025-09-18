@@ -5,3 +5,5 @@ global using Serilog;
 global using Carter;
 global using Shared.Exceptions.Handlers;
 global using Shared.Extentions;
+global using FluentValidation;
+global using Shared.Behaviors;
