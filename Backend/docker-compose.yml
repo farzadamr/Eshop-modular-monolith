@@ -11,3 +11,4 @@ services:
 
 volumes:
   postgres-eshopdb:
+  seq-data:  
