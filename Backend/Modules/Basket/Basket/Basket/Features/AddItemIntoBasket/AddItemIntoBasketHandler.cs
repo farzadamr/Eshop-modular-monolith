@@ -1,4 +1,4 @@
-﻿ namespace Basket.Basket.Features.AddItemIntoBasket;
+﻿namespace Basket.Basket.Features.AddItemIntoBasket;
 
 public record AddItemIntoBasketCommand(string userName, ShoppingCartItemDto ShoppingCartItemDto)
     :ICommand<AddItemIntoBasketResult>;
@@ -14,19 +14,22 @@ public class AddItemIntoBasketCommandValidator : AbstractValidator<AddItemIntoBa
     }
 }
 
-internal class AddItemIntoBasketHandler (IBasketRepository repository)
+internal class AddItemIntoBasketHandler 
+    (IBasketRepository repository, ISender sender)
     : ICommandHandler<AddItemIntoBasketCommand, AddItemIntoBasketResult>
 {
     public async Task<AddItemIntoBasketResult> Handle(AddItemIntoBasketCommand command, CancellationToken cancellationToken)
     {
         var shoppingCart = await repository.GetBasket(command.userName, false, cancellationToken);
 
+        var result = await sender.Send(new GetProductByIdQuery(command.ShoppingCartItemDto.ProductId));
+
         shoppingCart.AddItem(
             command.ShoppingCartItemDto.ProductId,
             command.ShoppingCartItemDto.Quantity,
             command.ShoppingCartItemDto.Color,
-            command.ShoppingCartItemDto.Price,
-            command.ShoppingCartItemDto.ProductName);
+            result.Product.Price,
+            result.Product.Name);
 
         await repository.SaveChangesAsync(command.userName, cancellationToken);
         

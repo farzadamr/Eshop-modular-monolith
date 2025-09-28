@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Shared.CQRS;
+using Shared.Contracts.CQRS;
 using System.Diagnostics;
-using System.Windows.Input;
 
 namespace Shared.Behaviors;
 

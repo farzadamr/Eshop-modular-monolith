@@ -24,3 +24,9 @@ services:
         - "9091:80"
      volumes:
         - seq-data:/data
+
+  distributedcache:
+     container_name: distributedcache
+     restart: always
+     ports:
+        - "6379:6379"
